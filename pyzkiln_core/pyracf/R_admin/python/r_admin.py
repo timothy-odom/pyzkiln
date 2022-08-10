@@ -7,6 +7,15 @@
 """
 import py_racf
 from pxtr import Pxtr
+from Alu import Alu
+from permit import Permit
+from connect import Connect
+from rdef import Rdef
+from rem import Remove
+from setr import Setr
+from rdel import Rdel
+
+
 
 
 # R_admin flags.
@@ -122,6 +131,7 @@ class Radmin:
             return None
         elif func_type == ADMIN_ALT_USER:
             self.fgrp = ADMIN_GRP_UADMIN
+            self.func = Alu(self.racf, self, func_type)
             return None
         elif func_type == ADMIN_LST_USER:
             self.fgrp = ADMIN_GRP_UADMIN
@@ -143,9 +153,11 @@ class Radmin:
             return None
         elif func_type == ADMIN_CONNECT:
             self.fgrp = ADMIN_GRP_GCONN
+            self.func = Connect(self.racf, self, func_type)
             return None
         elif func_type == ADMIN_REMOVE:
             self.fgrp = ADMIN_GRP_GCONN
+            self.func = Remove(self.racf, self, func_type)
             return None
         elif func_type == ADMIN_ADD_GENRES:
             self.fgrp = ADMIN_GRP_GENRES
@@ -161,9 +173,11 @@ class Radmin:
             return None
         elif func_type == ADMIN_ADD_DS:
             self.fgrp = ADMIN_GRP_GENRES
+            self.func = Rdef(self.racf, self, func_type)
             return None
         elif func_type == ADMIN_DEL_DS:
             self.fgrp = ADMIN_GRP_GENRES
+            self.func = Rdel(self.racf, self, func_type)
             return None
         elif func_type == ADMIN_ALT_DS:
             self.fgrp = ADMIN_GRP_GENRES
@@ -173,9 +187,11 @@ class Radmin:
             return None
         elif func_type == ADMIN_PERMIT:
             self.fgrp = ADMIN_GRP_GENRES
+            self.func = Permit(self.racf, self, func_type)
             return None
         elif func_type == ADMIN_ALT_SETR:
             self.fgrp = ADMIN_GRP_SETRAD
+            self.func = Setr(self.racf, self, func_type)
             return None
         elif func_type == ADMIN_XTR_SETR:
             self.fgrp = ADMIN_GRP_SETRRP
